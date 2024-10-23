@@ -100,8 +100,7 @@ int main(){
                     updateboard(&board, x, y, 'O');
                     break;
                 }
-                printf("\n\nDie eingegeben Werte sind inkorrekt! Erneute Eingabe erforderlich!\n");
-                printf("%c %c", x, y);
+                printf("\n\nDie eingegeben Werte sind inkorrekt! Erneute Eingabe erforderlich!");
             }
             
         }
@@ -127,6 +126,10 @@ int main(){
             }
         }
         turn++;
+        if(turn == 9){
+            printf("\nUnentschieden! Kein Spieler hat gewonnen!");
+            break;
+        }
     }
     scanf("%s");
     return 0;
