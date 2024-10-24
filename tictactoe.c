@@ -3,17 +3,11 @@
 #include <stdlib.h>
 #include <locale.h>
 
-char replaceEmpty(char character){
-    if(character == '0'){
-        return ' ';
-    }
-    return character;
-}
 void printBoard(char board[3][3]){
     printf("\n  1 2 3 X");
-    printf("\n1 %c %c %c", replaceEmpty(board[0][0]), replaceEmpty(board[1][0]), replaceEmpty(board[2][0]));
-    printf("\n2 %c %c %c", replaceEmpty(board[0][1]), replaceEmpty(board[1][1]), replaceEmpty(board[2][1]));
-    printf("\n3 %c %c %c", replaceEmpty(board[0][2]), replaceEmpty(board[1][2]), replaceEmpty(board[2][2]));
+    printf("\n1 %c %c %c", board[0][0], board[1][0], board[2][0]);
+    printf("\n2 %c %c %c", board[0][1], board[1][1], board[2][1]);
+    printf("\n3 %c %c %c", board[0][2], board[1][2], board[2][2]);
     printf("\nY");
 }
 bool isgamegoing(char board[3][3]){
@@ -31,6 +25,9 @@ bool isgamegoing(char board[3][3]){
         if(board[0][0] == c && board[1][1] == c && board[2][2] == c){
             won = true;
         }
+        if(board[2][0] == c && board[1][1] == c && board[0][2] == c){
+            won = true;
+        }
         //Zeilen und Spalten kontrollieren
         for(int i = 0; i < 4; i++){
             if(board[0][i] == c && board[1][c] == c && board[2][c] == c){
@@ -46,7 +43,7 @@ bool isgamegoing(char board[3][3]){
         }
         turn++;
     }
-    return true; //REPLACEMENT
+    return true;
 }
 void clearBuffer(){
     while(getchar() != '\n');
@@ -55,7 +52,7 @@ bool checkValid(char charx, char chary, char board[3][3]){
     int x = charx - '0';
     int y = chary - '0';
     if(x > 0 && x < 4 && y > 0 && y < 4){
-        if(board[x - 1][y - 1] == '0'){
+        if(board[x - 1][y - 1] == ' '){
             return true;
         }
     }
@@ -72,9 +69,9 @@ int main(){
     setlocale(LC_ALL, "");
     int turn = 0;
     char board[3][3] = {
-        {'0', '0', '0'},
-        {'0', '0', '0'},
-        {'0', '0', '0'}
+        {' ', ' ', ' '},
+        {' ', ' ', ' '},
+        {' ', ' ', ' '}
     };
     while(isgamegoing(board)){
                 #ifdef _WIN32
